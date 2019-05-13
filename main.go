@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"html/template"
 	"log"
 	"net/http"
 	"time"
@@ -21,5 +21,9 @@ func main() {
 }
 
 func home(response http.ResponseWriter, request *http.Request) {
-	fmt.Fprintf(response, "hello world")
+	t, err := template.ParseFiles("./templates/index.html")
+	if err != nil {
+		log.Fatal(err)
+	}
+	t.Execute(response, "World")
 }
